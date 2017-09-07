@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lin.dao.ParaDao">
+	<!--设置domain类和数据库中表的字段一一对应，注意数据库字段和domain类中的字段名称不致，此处一定要！ -->
+	<resultMap id="FormulaResultMap" type="com.lin.domain.FormulaInfo" >
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="CONTENT" property="content" jdbcType="VARCHAR" />
+		<result column="DES" property="des" jdbcType="VARCHAR" />
+	</resultMap>
+		<select id="selectFormulaByName" parameterType="java.lang.String" resultMap="FormulaResultMap">
+		 select name , content, des from T_CXFX_GSJS_FORMULA WHERE 1 = 1 
+		<if test="formulaName != null and formulaName !=''">
+		   AND name like '%${formulaName}%'
+		</if>
+		</select>
+		
+		<select id="updataFormulaByName" parameterType="java.lang.String" resultMap="FormulaResultMap">
+		 select name , content, des from T_CXFX_GSJS_FORMULA WHERE 1 = 1  and name=#{formulaName,jdbcType=VARCHAR}
+		</select>
+		
+	
+</mapper>
